@@ -1,5 +1,4 @@
 import 'dotenv/config';
-
 import express from 'express';
 import path from 'path';
 import 'express-async-errors'; //necessita ficar antes de routes
