@@ -97,6 +97,15 @@ class AppointmentController {
     });
 
     /**
+     * Check if provider was'nt the user
+     */
+    if (provider_id === req.userId) {
+      return res
+        .status(401)
+        .json({ error: "Provider can't create appointment for himself" });
+    }
+
+    /**
      * Notify appointment provider
      */
     const user = await User.findByPk(req.userId);
@@ -110,15 +119,6 @@ class AppointmentController {
       content: `Novo agendamento de ${user.name} para ${formattedDate}`,
       user: provider_id
     });
-
-    /**
-     * Check if provider was'nt the user
-     */
-    if (provider_id === req.userId) {
-      return res
-        .status(401)
-        .json({ error: "Provider can't create appointment for himself" });
-    }
 
     return res.json(appointment);
   }
